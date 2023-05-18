@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,37 +8,23 @@
     <title>Acesso</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css')}}">
 
+    <style>
+        .result {
+            display: flex;
+            flex-direction: column;
+            align-items: self-start;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>
-        OLÁ MUNDO! <br><br>
-        
-        PARABENS VOCE ESTA LOGADO <br><br>
-        {{nomeUsuario}}
-        {{nomecadastro}}
-
-    </h1>
-    <div id="container-login">
-        <h1>CADASTRO PYTHON</h1>
-        {% set mensagens = get_flashed_messages() %}
-        {% if mensagens %}
-            <div id="alerta">
-                {{mensagens[0]}}
-            </div>
-        {% endif %}
-        <form action="cadastrar" method="post">
-            
-            <section id="login">
-                
-                <label for="nome">nome</label>
-                <input type="text" name="nomecad" id="nome" placeholder="Digite seu nome de usuario" required>
-                <label for="senha">senha</label>
-                <input type="password" name="senhacad" id="senha" placeholder="Digite sua senha" required>
-                <button type="submit" id="btn-entrar" value="entrar">ENTRAR</button>
-            </section>
-        </form>
+    <div class="result" id="container-login">
+        <span><b>Lab:</b> {{laboratorio}}</span>
+        <span><b>Data:</b> {{data}}</span>
+        <span><b>Horario:</b> {{horario}}</span>
+        <span><b>Quantidade:</b> {{quantidade}}</span>
+        <span><b>Programas necessarios:</b> {{programa}}</span>
     </div>
-
-
 </body>
+
 </html>

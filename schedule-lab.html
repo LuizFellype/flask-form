@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Agendamento de Laboratórios</title>
+    <style>
+        
+        @font-face {
+            font-family: "Patrick Hand SC";
+            src: local("Patrick Hand SC"),
+            url(./fonts/PatrickHandSC-Regular.ttf) format("truetype");
+        }
+        
+        * {
+            font-family: "Patrick Hand SC", sans-serif;
+        }
+
+        body {
+            background: #d2bf9e;
+        }
+
+        .form-container {
+            max-width: fit-content;
+            min-width: 300px;
+            margin: 20% auto;
+            border-bottom-left-radius: 15px 255px;
+            border-bottom-right-radius: 225px 15px;
+            border-top-left-radius: 255px 15px;
+            border-top-right-radius: 5px 100px;
+            border: 2px solid #41403e;
+            background-color: #e6ddd0;
+            padding: 2em
+            /* width: 80vw; */
+            /* max-width: 40em; */
+            /* transform: rotate(-3deg); */
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .form-container label,
+        .form-container input,
+        .form-container button,
+        .form-container select {
+            margin-bottom: 10px;
+            width: 90%;
+        }
+
+        input,
+        select {
+            background: 0 0;
+            border: 2px solid #41403e;
+            border-bottom-left-radius: 15px 255px;
+            border-bottom-right-radius: 225px 15px;
+            border-top-left-radius: 255px 15px;
+            border-top-right-radius: 15px 225px;
+            color: #41403e;
+            display: block;
+            font-size: 1rem;
+            outline: 0;
+            padding: 0.5rem;
+            margin-left: 5px;
+        }
+
+        button {
+            border-bottom-left-radius: 15px 255px;
+            border-bottom-right-radius: 225px 15px;
+            border-top-left-radius: 255px 15px;
+            border-top-right-radius: 15px 225px;
+            transition: all 235ms ease 0s;
+            box-shadow: 15px 28px 25px -18px rgb(0 0 0 / 20%);
+            transition: all 235ms ease-in-out 0s;
+            align-self: center;
+            background: #66ba4e29;
+            border: 2px solid #41403e;
+            color: #41403e;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 1rem;
+            outline: 0;
+            padding: 0.5rem;
+        }
+
+        button:hover {
+            transform: scale(1.1) translateZ(0);
+            box-shadow: 0 2px 4px 2px rgba(0, 0, 0, .15)
+        }
+
+        button:disabled {
+            opacity: .4;
+            transform: none;
+            box-shadow: none
+        }
+
+        .center {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Agendar Laboratório</h2>
+        <label for="email">Email:</label>
+        <input type="text" id="email">
+        <label for="laboratorio">Laboratório:</label>
+        <select id="laboratorio">
+            <option value="Laboratório de Pesquisa">Laboratório de Pesquisa</option>
+            <option value="Laboratório de Estudo">Laboratório de Estudo</option>
+        </select>
+        <label for="data">Data:</label>
+        <input type="date" id="data">
+        <label for="horario">Horário:</label>
+        <input type="time" id="horario">
+        <label for="quantidade">Quantidade de Alunos:</label>
+        <input type="number" id="quantidade">
+        <label for="programa">Programa Específico:</label>
+        <input type="text" id="programa">
+        <div class="center">
+            <button onclick="agendarHorario()">Agendar</button>
+        </div>
+    </div>
+
+    <script>
+        function agendarHorario() {
+            var email = document.getElementById("email").value;
+            var laboratorio = document.getElementById("laboratorio").value;
+            var data = document.getElementById("data").value;
+            var horario = document.getElementById("horario").value;
+            var quantidade = document.getElementById("quantidade").value;
+            var programa = document.getElementById("programa").value;
+
+            // Lógica para agendar o horário no laboratório escolhido
+            // Aqui você pode enviar os dados para o backend e lidar com o envio de e-mails
+
+            // Exemplo de envio de dados para um servidor backend
+            var agendamento = {
+                email,
+                lab: laboratorio,
+                date: data,
+                hour: horario,
+                qtd: quantidade,
+                requirements: programa
+            };
+
+            // Enviar os dados para o backend usando AJAX ou Fetch API
+            fetch('https://5rpndw2ghnq2wuga5v6n2jsdgi0hcnfn.lambda-url.us-east-1.on.aws', {
+                method: 'POST',
+                body: JSON.stringify(agendamento)
+            })
+                .then(function (response) {
+                    return response.json()
+                }).then((data) => {
+                    const alertMessage = `${data.message}${data.requiredFields ? `: ${data.requiredFields.join()}.` : ''}`
+                    alert(alertMessage)
+                })
+                .catch(function (error) {
+                    console.error('Agendamento: Erro -> ', error);
+                });
+        }
+    </script>
+</body>
+
+</html>
